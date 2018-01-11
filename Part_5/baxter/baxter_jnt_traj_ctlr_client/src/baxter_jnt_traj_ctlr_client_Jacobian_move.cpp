@@ -45,10 +45,11 @@ int main(int argc, char** argv) {
     // specify an incremental motion from dp_des, and specify how many steps to take:
     int nsteps = 200; //200 steps at 1mm is motion of 0.2m
     dp_des.resize(6);
-    dp_des<<0.001,0,0,0,0,0; //this is 1mm increments in the selected direction
+    dp_des<<0.002,0.003,-0.002,0,0,0; //this is 1mm increments in the selected direction
     dq_des.resize(7);
     q_des.resize(7);
-    
+
+  
     //here are hard-coded joint angles for left and right arm poses
     cout << "setting pre-poses: " << endl;
     q_pre_pose_right.resize(7);
@@ -153,6 +154,53 @@ int main(int argc, char** argv) {
         q_des = q_des + dq_des;  
         des_path_right.push_back(q_des);     
     }
+
+
+    dp_des.resize(6);
+    dp_des<<0.002,0.001,-0.001,0,0,0;
+   // dp_des<<0,0,0,0,0,0; //this is 1mm increments in the selected direction
+    dq_des.resize(7);
+    q_des.resize(7);
+    for (int i=0;i<nsteps;i++) {
+        Jacobian = baxter_fwd_solver.compute_Jacobian(q_des);
+        Jtrans = Jacobian.transpose();
+        Jtrans_J = Jtrans*Jacobian;
+        Jtrans_J_inv = Jtrans_J.inverse();
+        dq_des = Jtrans_J_inv*Jtrans*dp_des;
+        q_des = q_des + dq_des;  
+        des_path_right.push_back(q_des);     
+    }
+ 
+  
+    dp_des.resize(6);
+    dp_des<<0,0,-0.003,0,0,0; //this is 1mm increments in the selected direction
+    dq_des.resize(7);
+    q_des.resize(7);
+    for (int i=0;i<nsteps;i++) {
+        Jacobian = baxter_fwd_solver.compute_Jacobian(q_des);
+        Jtrans = Jacobian.transpose();
+        Jtrans_J = Jtrans*Jacobian;
+        Jtrans_J_inv = Jtrans_J.inverse();
+        dq_des = Jtrans_J_inv*Jtrans*dp_des;
+        q_des = q_des + dq_des;  
+        des_path_right.push_back(q_des);     
+    }
+
+/*
+    dp_des.resize(6);
+    dp_des<<0,0.001,0,0,0,0; //this is 1mm increments in the selected direction
+    dq_des.resize(7);
+    q_des.resize(7);
+    for (int i=0;i<nsteps;i++) {
+        Jacobian = baxter_fwd_solver.compute_Jacobian(q_des);
+        Jtrans = Jacobian.transpose();
+        Jtrans_J = Jtrans*Jacobian;
+        Jtrans_J_inv = Jtrans_J.inverse();
+        dq_des = Jtrans_J_inv*Jtrans*dp_des;
+        q_des = q_des + dq_des;  
+        des_path_right.push_back(q_des);     
+    }
+*/
 
     baxter_traj_streamer.stuff_trajectory_right_arm(des_path_right, des_trajectory_right);
     goal_right.trajectory = des_trajectory_right;
