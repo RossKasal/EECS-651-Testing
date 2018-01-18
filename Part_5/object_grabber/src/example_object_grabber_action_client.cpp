@@ -34,7 +34,13 @@ XformUtils xformUtils; //type conversion utilities
 int g_object_grabber_return_code;
 actionlib::SimpleActionClient<object_grabber::object_grabberAction> *g_object_grabber_ac_ptr;
 bool g_got_callback = false;
+std_msgs::Float64 message_holder;
 
+void myCallback(const std_msgs::Float64& message_holder) 
+{
+  ROS_INFO("received value is: %f", message_holder.data); 
+  ROS_INFO("---------------------------------------------------");
+} 
 
 void objectGrabberDoneCb(const actionlib::SimpleClientGoalState& state,
         const object_grabber::object_grabberResultConstPtr& result) {
@@ -138,7 +144,19 @@ ros::Publisher gripper_publisher_object = n.advertise<baxter_core_msgs::EndEffec
     gripper_cmd_close.sender = "rsdk_gripper_keyboard_go";
     */
     //specify object pick-up and drop-off frames using simple test fnc
-    //more generally, pick-up comes from perception and drop-off comes from task
+    //more generally, pick-up comes fvoid myCallback(const std_msgs::Float64& message_holder) 
+{ 
+  // the real work is done in this callback function 
+  // it wakes up every time a new message is published on "topic1" 
+  // Since this function is prompted by a message event, 
+  //it does not consume CPU time polling for new data 
+  // the ROS_INFO() function is like a printf() function, except 
+  // it publishes its output to the default rosout topic, which prevents 
+  // slowing down this function for display calls, and it makes the 
+  // data available for viewing and logging purposes 
+  ROS_INFO("received value is: %f",message_holder.data); 
+  //really could do something interesting here with the received data...but all we do is print it 
+} //rom perception and drop-off comes from task
     set_example_object_frames(object_pickup_poseStamped, object_dropoff_poseStamped);
     //instantiate an action client of object_grabber_action_service:
     actionlib::SimpleActionClient<object_grabber::object_grabberAction> object_grabber_ac("object_grabber_action_service", true);
@@ -171,5 +189,10 @@ ros::Publisher gripper_publisher_object = n.advertise<baxter_core_msgs::EndEffec
         ROS_INFO("waiting on dropoff...");
         ros::Duration(0.5).sleep(); //could do something useful
     }   
+    
+
+    ros::Subscriber my_subscriber= nh.subscribe("selected_points",1,myCallback);
+    ros::spin(); 
+    
     return 0;
 }
