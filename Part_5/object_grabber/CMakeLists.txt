@@ -34,12 +34,7 @@ cs_add_library(object_grabber_lib2 src/object_grabber2.cpp)
 cs_add_executable(object_grabber_action_server src/object_grabber_as.cpp)
 cs_add_executable(object_grabber_action_server2 src/object_grabber_as2.cpp)
 
-#cs_add_executable(object_grabber_action_client src/object_grabber_action_client.cpp)
 cs_add_executable(example_object_grabber_action_client src/example_object_grabber_action_client.cpp)
-
-#cs_add_executable(object_grabber_action_client_test src/ object_grabber_action_client_test.cpp)
-
-
 cs_add_executable(block_grabber_action_client src/block_grabber_action_client.cpp)
 cs_add_executable(set_baxter_gripper_param src/set_baxter_gripper_param.cpp)
 cs_add_executable(set_sticky_fingers_gripper_param src/set_sticky_fingers_gripper_param.cpp)
