@@ -54,13 +54,13 @@ void set_example_object_frames(geometry_msgs::PoseStamped &object_poseStamped,
     //specify reference frame in which this pose is expressed:
     //will require that "system_ref_frame" is known to tf
     object_poseStamped.header.frame_id = "base"; //set object pose; ref frame must be connected via tf
-    object_poseStamped.pose.position.x = 0.3;
-    object_poseStamped.pose.position.y = 0.0;
-    object_poseStamped.pose.position.z = -0.2 ; //-0.125; //pose w/rt world frame
-    object_poseStamped.pose.orientation.x = 0.08;
-    object_poseStamped.pose.orientation.y = 0.002;
-    object_poseStamped.pose.orientation.z = 0.02;
-    object_poseStamped.pose.orientation.w = 1;
+    object_poseStamped.pose.position.x = 0.425893;
+    object_poseStamped.pose.position.y = 0.046992;
+    object_poseStamped.pose.position.z = -0.205967 + 0.05; //-0.125; //pose w/rt world frame
+    object_poseStamped.pose.orientation.x = 0.081135;
+    object_poseStamped.pose.orientation.y = 0.002112;
+    object_poseStamped.pose.orientation.z = 0.019680;
+    object_poseStamped.pose.orientation.w = 0.994412;
 
     object_poseStamped.header.stamp = ros::Time::now();
 	/*naptime.sleep();
@@ -72,12 +72,11 @@ void set_example_object_frames(geometry_msgs::PoseStamped &object_poseStamped,
 	naptime.sleep();
 	*/
     object_dropoff_poseStamped = object_poseStamped; //specify desired drop-off pose of object
-    //object_dropoff_poseStamped.pose.orientation.z = 1;
-    //object_dropoff_poseStamped.pose.orientation.w = 0;
-    
-    object_dropoff_poseStamped.pose.position.x = 0.7;
+    object_dropoff_poseStamped.pose.orientation.z = 1;
+    object_dropoff_poseStamped.pose.orientation.w = 0;
+    object_dropoff_poseStamped.pose.position.x = 0.43;
     object_dropoff_poseStamped.pose.position.y = 0.2;
-    object_dropoff_poseStamped.pose.position.z = -0.2; //-0.125; //pose w/rt world frame
+    object_dropoff_poseStamped.pose.position.z = -0.2 + 0.05; //-0.125; //pose w/rt world frame
 }
 
 void move_to_waiting_pose() {
