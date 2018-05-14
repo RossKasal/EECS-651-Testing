@@ -67,6 +67,11 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
     double x_min = 0.0;
     double x_max = 0.5;
     double x_current = 0.0;
+    
+    double y_min = 0.0;
+    double y_max = 0.5;
+    double y_current = 0.0;
+
 
     int i=0;
 
@@ -74,6 +79,7 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
 	knife_pose.position.x=0;
 	x_current = knife_pose.position.x;
 	knife_pose.position.y=0;
+	y_current = knife_pose.position.y;
 	knife_pose.position.z=1;
 	knife_pose.orientation.x=0;
 	knife_pose.orientation.y=1;
@@ -101,16 +107,16 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
 	linear_path.poses.push_back(desired_pose);
 	i++;
 	
-	while(x_current<x_max) {
-        	x = dt/10;
-        	//y = dt/10;
+	while(y_current<y_max) {
+        	//x = dt/10;
+        	y = dt/10;
         	desired_pose.header.seq=i;
     		desired_pose.header.stamp=ros::Time::now();
     		desired_pose.header.frame_id="world";
-    		desired_pose.pose.position.x=knife_pose.position.x+x;
-    		//desired_pose.pose.position.y=knife_pose.position.y+y;
+    		//desired_pose.pose.position.x=knife_pose.position.x+x;
+    		desired_pose.pose.position.y=knife_pose.position.y+y;
          	linear_path.poses.push_back(desired_pose);
-         	x_current += x;
+         	y_current += y;
         	i++;
     	
         }

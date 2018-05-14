@@ -197,15 +197,6 @@ bool find_optimal_path_from_path_message (nav_msgs::Path path, std::vector<Eigen
 }
 
 
-
-
-
-
-
-
-
-
-
 int main (int argc, char** argv) {
 	ros::init(argc, argv, "screw_action_client_node");
 	ros::NodeHandle nh;
