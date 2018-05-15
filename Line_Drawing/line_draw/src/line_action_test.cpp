@@ -24,7 +24,6 @@
 
 
 
-
 std::vector<vector<Eigen::VectorXd> > path_options;
 pcl::PointCloud<pcl::PointXYZ>::Ptr g_pclSelectedPoints_ptr;
 geometry_msgs::Pose g_recieved_pose;
@@ -65,11 +64,11 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
     double x, y, z;
     z = 0;
     double x_min = 0.0;
-    double x_max = 0.5;
+    double x_max = 0.25;
     double x_current = 0.0;
     
     double y_min = 0.0;
-    double y_max = 0.5;
+    double y_max = 0.25;
     double y_current = 0.0;
 
 
@@ -107,19 +106,21 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
 	linear_path.poses.push_back(desired_pose);
 	i++;
 	
-	while(y_current<y_max) {
-        	//x = dt/10;
-        	y = dt/10;
+	while(x_current<x_max) {
+        	x = dt/10;
+        	//y = dt/10;
         	desired_pose.header.seq=i;
     		desired_pose.header.stamp=ros::Time::now();
     		desired_pose.header.frame_id="world";
-    		//desired_pose.pose.position.x=knife_pose.position.x+x;
-    		desired_pose.pose.position.y=knife_pose.position.y+y;
+    		desired_pose.pose.position.x=knife_pose.position.x+x;
+    		//desired_pose.pose.position.y=knife_pose.position.y+y;
          	linear_path.poses.push_back(desired_pose);
-         	y_current += y;
-        	i++;
-    	
+         	x_current += x;
+         	//y_current += y;
+        	i++;       	
         }
+        
+    
 
     desired_pose.header.seq=i;
 	desired_pose.header.stamp=ros::Time::now();
@@ -131,7 +132,6 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
     //-0.2;//start with 20cm above surface
 	linear_path.poses.push_back(desired_pose);
 	i++;
-
 	ROS_INFO("Debug: Path contains %d poses", i);
 
 }
@@ -200,9 +200,6 @@ bool find_optimal_path_from_path_message (nav_msgs::Path path, std::vector<Eigen
 	}
 }
 
-
-
-
 int main (int argc, char** argv) {
 	ros::init(argc, argv, "line_action_client_node");
 	ros::NodeHandle nh;
@@ -250,7 +247,6 @@ int main (int argc, char** argv) {
 	q_vec = arm7dof_traj_streamer.get_q_vec_Xd(); 
     cout << "arm current state:" << q_vec.transpose() << endl;
     
-     
 
     cout << "stuffing traj: " << endl;
     //convert from vector of 7dof poses to trajectory message  
@@ -274,11 +270,9 @@ int main (int argc, char** argv) {
 	}
     bool finished_before_timeout2=false;
     while (!finished_before_timeout2) {
+		
     	ROS_INFO("debug:waiting");
     finished_before_timeout2 = arm_action_client.waitForResult(ros::Duration(10.0));
     }
-	
-
-
 }	
 }
