@@ -93,22 +93,14 @@ def map_keyboard():
         'x': (grip_right.open, [], "right: gripper open"),
         'b': (grip_right.calibrate, [], "right: gripper calibrate"),
 """
-        '0': (grip_right.open, [], "right: gripper open"),
-        '1': (set_j, [right, rj[0], 0.1], "right_s0 increase"),
-        '2': (set_j, [right, rj[1], 0.1], "right_s1 increase"),
-        '3': (set_j, [right, rj[2], 0.1], "right_e0 increase"),
-        '4': (set_j, [right, rj[3], 0.1], "right_e1 increase"),
-        '5': (set_j, [right, rj[4], 0.1], "right_w0 increase"),
-        '6': (set_j, [right, rj[5], 0.1], "right_w1 increase"),
-        '7': (set_j, [right, rj[6], 0.1], "right_w2 increase"),
 
-        'q': (set_j, [right, rj[0], -0.1], "right_s0 decrease"),
-        'w': (set_j, [right, rj[1], -0.1], "right_s1 decrease"),
-        'e': (set_j, [right, rj[2], -0.1], "right_e0 decrease"),
-        'r': (set_j, [right, rj[3], -0.1], "right_e1 decrease"),
-        't': (set_j, [right, rj[4], -0.1], "right_w0 decrease"),
-        'y': (set_j, [right, rj[5], -0.1], "right_w1 decrease"),
-        'u': (set_j, [right, rj[6], -0.1], "right_w2 decrease"),
+        '0': (set_j, [right, rj[0], 0.1], "right_s0 increase"),
+        '1': (set_j, [right, rj[1], 0.1], "right_s1 increase"),
+        '2': (set_j, [right, rj[2], 0.1], "right_e0 increase"),
+        '3': (set_j, [right, rj[3], 0.1], "right_e1 increase"),
+        '4': (set_j, [right, rj[4], 0.1], "right_w0 increase"),
+        '5': (set_j, [right, rj[5], 0.1], "right_w1 increase"),
+        '6': (set_j, [right, rj[6], 0.1], "right_w2 increase"),
 
      }
     done = False

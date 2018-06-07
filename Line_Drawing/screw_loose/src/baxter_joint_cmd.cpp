@@ -9,8 +9,11 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(100);
   baxter_core_msgs::JointCommand cmd;
   
+  //command in position mode
+  cmd.mode = baxter_core_msgs::JointCommand::POSITION_MODE;
+  
   // command in velocity mode
-  cmd.mode = baxter_core_msgs::JointCommand::VELOCITY_MODE;
+  //cmd.mode = baxter_core_msgs::JointCommand::VELOCITY_MODE;
   
   // command in torque mode
   //cmd.mode = baxter_core_msgs::JointCommand::TORQUE_MODE;
@@ -26,10 +29,10 @@ int main(int argc, char **argv)
   // set your calculated velocities
   cmd.command.resize(cmd.names.size());
   
-  //for(size_t i = 0; i < cmd.names.size(); i++)
-   //cmd.command[i] = 0.1;
+  for(size_t i = 0; i < cmd.names.size(); i++)
+   cmd.command[i] = 0.1;
   
-  
+  /*
   cmd.command[0] = 0.769291;
   cmd.command[1] = -0.913486;
   cmd.command[2] = -0.211689;
@@ -37,7 +40,7 @@ int main(int argc, char **argv)
   cmd.command[4] = 0.0452524;
   cmd.command[5] = 0.785015;
   cmd.command[6] = 3.05914;
-  
+  */
     
   std::cout<<cmd<<std::endl;
   while(ros::ok()){
