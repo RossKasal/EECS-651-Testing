@@ -57,7 +57,7 @@ cs_add_executable(box_filter src/box_filter_main.cpp src/find_indices_of_plane_f
 target_link_libraries(find_plane_pcd_file pcl_utils)
 target_link_libraries(find_plane_pcd_file2 pcl_utils)
 target_link_libraries(box_filter pcl_utils)
-target_link_libraries(write_pcd_main pcl_utils)
+#target_link_libraries(write_pcd_main pcl_utils)
 cs_install()
 cs_export()
     

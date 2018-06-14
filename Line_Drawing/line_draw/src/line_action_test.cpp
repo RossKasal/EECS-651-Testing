@@ -71,7 +71,6 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
     double y_max = 0.25;
     double y_current = 0.0;
 
-
     int i=0;
 
 
@@ -119,8 +118,6 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
          	//y_current += y;
         	i++;       	
         }
-        
-    
 
     desired_pose.header.seq=i;
 	desired_pose.header.stamp=ros::Time::now();
@@ -133,9 +130,7 @@ void make_linear_path_around_provided_pose (geometry_msgs::Pose center_pose, nav
 	linear_path.poses.push_back(desired_pose);
 	i++;
 	ROS_INFO("Debug: Path contains %d poses", i);
-
 }
-
 
 bool find_optimal_path_from_path_message (nav_msgs::Path path, std::vector<Eigen::VectorXd> &optimal_path) {
 	Eigen::VectorXd weights;
@@ -214,7 +209,7 @@ int main (int argc, char** argv) {
     std::vector<Eigen::VectorXd> des_path;
     trajectory_msgs::JointTrajectory des_trajectory;
     Arm7dof_traj_streamer arm7dof_traj_streamer(&nh);
-	actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> arm_action_client("/arm7dof/joint_trajectory_controller/follow_joint_trajectory/", true);
+	actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> arm_action_client("/Learning_ROS/Part_5/baxter/baxter_interface/src/joint_trajectory_action/joint_trajectory_action/", true);
 	
 
     q_pre_pose.resize(7);
