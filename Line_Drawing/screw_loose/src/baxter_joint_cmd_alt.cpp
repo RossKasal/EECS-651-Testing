@@ -29,8 +29,8 @@ int main(int argc, char **argv)
   // set your calculated velocities
   cmd.command.resize(cmd.names.size());
   
-  for(size_t i = 0; i < cmd.names.size(); i++)
-   cmd.command[i] = 0.0;
+  //for(size_t i = 0; i < cmd.names.size(); i++)
+   //cmd.command[i] = 0.0;
   
   /*
   cmd.command[0] = 0.769291;
@@ -41,6 +41,14 @@ int main(int argc, char **argv)
   cmd.command[5] = 0.785015;
   cmd.command[6] = 3.05914;
   */
+  
+  cmd.command[0] = 0.0; //right_e0
+  cmd.command[1] = 1.75; //right_e1
+  cmd.command[2] = 0.6; //right_s0
+  cmd.command[3] = -0.6; //right_s1
+  cmd.command[4] = 0.0; //right_w0
+  cmd.command[5] = 0.5; //right_w1
+  cmd.command[6] = 0.0; //right_w2
     
   std::cout<<cmd<<std::endl;
   while(ros::ok()){

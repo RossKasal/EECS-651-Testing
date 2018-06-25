@@ -13,6 +13,7 @@ catkin_simple()
 
 cs_add_executable(circle_action_test src/circle_action_test.cpp)
 cs_add_executable(baxter_joint_cmd src/baxter_joint_cmd.cpp)
+cs_add_executable(baxter_joint_cmd_alt src/baxter_joint_cmd_alt.cpp)
 
 cs_install()
 cs_export()
