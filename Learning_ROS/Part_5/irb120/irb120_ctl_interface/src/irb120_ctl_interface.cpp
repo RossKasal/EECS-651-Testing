@@ -18,7 +18,8 @@ Irb120RobotInterface::Irb120RobotInterface(ros::NodeHandle* nodehandle) : nh_(*n
     //initialize variables here, as needed
     ith_point_ = 0;
     npts_traj_ = 0;
-    dt_move_ = ros::Duration(0.1);
+    dt_move_ = ros::Duration(0.1);  //publish commands at this period, by default
+                                   //within trajectory, each point is published at specified arrival times
     prev_t_from_start_ = ros::Duration(0.0);
     current_t_from_start_ = ros::Duration(0.0);
     // can also do tests/waits to make sure all required services, topics, etc are alive
@@ -104,7 +105,7 @@ void Irb120RobotInterface::sendTrajPointCmd() {
         joint5_command_publisher_.publish(pos_cmd_);
         pos_cmd_.data = current_trajectory_point_.positions[5];
         joint6_command_publisher_.publish(pos_cmd_);        
-        print_point(current_trajectory_point_);
+        //print_point(current_trajectory_point_);
 
     } else {
         npts_traj_ = 0;
